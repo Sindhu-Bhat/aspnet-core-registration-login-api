@@ -25,6 +25,13 @@ stage('Build') {
            bat 'dotnet publish WebApi.csproj -c Release'
       }
    }
+   
+   stage('deploy') {
+        steps {
+        azureWebAppPublish azureCredentialsId: params.azure_cred_id,
+            resourceGroup: "Assessment-rg", appName: "jenkinssample1", sourceDirectory: "bin/Release/netcoreapp2.2/publish/"
+        }
+    }
 
  }
 }
